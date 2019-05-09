@@ -5,11 +5,12 @@ import http from 'http';
 export default class Server {
     public app: express.Application;
     public port: number;
+    private _instance!: Server;
     
     public io: SocketIO.Server;
     private httpServer: http.Server;
     
-    constructor(){
+    private constructor(){
         this.app = express();
         this.port = SERVER_PORT;
         this.httpServer = new http.Server(this.app);
@@ -21,6 +22,10 @@ export default class Server {
         this.io.on('connection', client => {
             console.log('Client connected');
         });
+    }
+
+    public static get instance(){
+        return this._instance || (this._instance = new this()); 
     }
 
     start( callback: Function){
