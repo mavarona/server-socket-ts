@@ -2,6 +2,7 @@ import express from 'express';
 import { SERVER_PORT } from '../globals/environment';
 import socketio from 'socket.io';
 import http from 'http';
+import * as socket from '../sockets/socket';
 export default class Server {
     public app: express.Application;
     public port: number;
@@ -21,6 +22,8 @@ export default class Server {
     private listenSockets(){
         this.io.on('connection', client => {
             console.log('Client connected');
+            socket.message(client, this.io);
+            socket.disconnect(client);
         });
     }
 
