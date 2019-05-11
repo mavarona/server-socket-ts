@@ -5,7 +5,7 @@ import http from 'http';
 export default class Server {
     public app: express.Application;
     public port: number;
-    private _instance!: Server;
+    private static _instance: Server;
     
     public io: SocketIO.Server;
     private httpServer: http.Server;
@@ -29,6 +29,6 @@ export default class Server {
     }
 
     start( callback: Function){
-        this.httpServer.listen(this.port, callback);
+        this.httpServer.listen(this.port, callback());
     }
 }
