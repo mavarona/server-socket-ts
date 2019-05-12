@@ -5,6 +5,7 @@ export class UserList {
     constructor(){}
     public addUser(user: User) {
         this.list.push(user);
+        return user;
     }
     public updateName(id: string, name: string) {
         for(let user of this.list){
