@@ -16,6 +16,9 @@ export class WebsocketService {
     this.checkStatus();
   }
 
+  getUser() {
+    return this.user;
+  }
 
   checkStatus() {
     this._socket.on('connect', () => {
