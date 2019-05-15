@@ -10,6 +10,19 @@ router.get('/messages', ( req: Request, res: Response)=>{
     })
 });
 
+router.post('/messages', (req: Request, res: Response) => {
+    const body = req.body.body;
+    const from = req.body.from;
+
+    const payload = {
+        from,
+        body
+    }
+
+    const server = Server.instance;
+    server.io.emit('new-message', payload);
+});
+
 router.post('/messages/:id', (req: Request, res: Response) => {
     const body = req.body.body;
     const from = req.body.from;
@@ -21,7 +34,7 @@ router.post('/messages/:id', (req: Request, res: Response) => {
     }
 
     const server = Server.instance;
-    server.io.in(id).emit('message', payload);
+    server.io.in(id).emit('private-message', payload);
 });
 
 export default router;
