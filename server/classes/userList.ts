@@ -16,7 +16,7 @@ export class UserList {
         }
     }
     public getUsers(): Array<User> {
-        return this.list;
+        return this.list.filter(user=> user.name !== 'anonymus');
     }
     public getUser(id: string) {
         return this.list.find( user => user.id === id);

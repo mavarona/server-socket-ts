@@ -24,6 +24,7 @@ export class WebsocketService {
     this._socket.on('connect', () => {
       console.log('Connect to the server');
       this.socketStatus = true;
+      this.loadStorage();
     });
     this._socket.on('disconnect', () => {
       console.log('Disconnect to the server');

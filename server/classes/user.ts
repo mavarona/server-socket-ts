@@ -5,6 +5,6 @@ export class User {
     constructor(id: string){
         this.id = id;
         this.name = 'anonymus';
-        this.room = ''
+        this.room = 'not in a room'
     }
 }
