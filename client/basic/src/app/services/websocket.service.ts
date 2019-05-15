@@ -8,10 +8,11 @@ import { User } from '../models/user';
 export class WebsocketService {
 
   public socketStatus = false;
-  public user: User;
+  public user: User = null;
 
   // tslint:disable-next-line:variable-name
   constructor(private _socket: Socket) {
+    this.loadStorage();
     this.checkStatus();
   }
 
@@ -37,9 +38,23 @@ export class WebsocketService {
   }
 
   loginWS(name: string) {
-    this.emit('config-user', {name}, resp => {
-      console.log(resp);
+    return new Promise((resolve, reject) => {
+      this.emit('config-user', {name}, resp => {
+        this.user = new User(name);
+        this.saveStorage();
+        resolve();
+      });
     });
+  }
+
+  saveStorage() {
+    localStorage.setItem('user', JSON.stringify(this.user));
+  }
+
+  loadStorage() {
+    if (localStorage.getItem('user')) {
+      this.user = JSON.parse(localStorage.getItem('user'));
+    }
   }
 
 }
