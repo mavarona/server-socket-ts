@@ -37,4 +37,20 @@ router.post('/messages/:id', (req: Request, res: Response) => {
     server.io.in(id).emit('private-message', payload);
 });
 
+router.get('/users', (req: Request, res: Response) => {
+    const server = Server.instance;
+    server.io.clients((err: any, clients: Array<string>) => {
+        if(err){
+            return res.json({
+                ok: false,
+                err
+            });
+        }
+        res.json({
+            ok: true,
+            clients
+        })
+    });
+});
+
 export default router;
