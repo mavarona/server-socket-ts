@@ -26,6 +26,7 @@ export default class Server {
             socket.configUser(client,this.io);
             socket.message(client, this.io);
             socket.disconnect(client, this.io);
+            socket.getUsers(client,this.io);
         });
     }
 
