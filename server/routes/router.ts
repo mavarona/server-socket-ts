@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import Server from '../classes/server';
+import { userConnected } from '../sockets/socket';
 
 const router = Router();
 
@@ -51,6 +52,13 @@ router.get('/users', (req: Request, res: Response) => {
             clients
         })
     });
+});
+
+router.get('/users/detail', (req: Request, res: Response) => {
+    res.json({
+        ok: true,
+        clients: userConnected.getUsers()
+    })
 });
 
 export default router;
